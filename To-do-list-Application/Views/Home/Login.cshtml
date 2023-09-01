@@ -1,0 +1,94 @@
+﻿@using To_do_list_Application.Controllers
+
+@{
+    ViewBag.Title = "Login";
+}
+<style>
+    .gradient-custom-2 {
+        /* fallback for old browsers */
+        background: #fccb90;
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+        height: 50vh; /* Decreased height */
+    }
+
+    .gradient-custom-3 {
+        /* fallback for old browsers */
+        background: #fccb90;
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+        /* Decreased height */
+    }
+    /* Center the card vertically and horizontally */
+    .card-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%; /* Fill the available height */
+    }
+
+    .card {
+        width: 50%;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    label {
+        font-weight: 500;
+    }
+
+   
+</style>
+<section class="h-100 gradient-form gradient-custom-2">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-xl-10">
+                <div class="card rounded-3 text-black">
+                    <div class="card-body p-md-5 mx-md-4">
+                        <div class="text-center">
+                            <img src="https://img.icons8.com/?size=1x&id=68HEa18wKhAt&format=png"
+                                 style="width:70px; height:70px" alt="logo">
+                            <h4 class="h3 fw-bold mb-0" style=" padding-top:1em;  padding-bottom:0.5em">Login to MyToDo</h4>
+                        </div>
+
+
+                        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                        {
+                            <div class="alert alert-danger">
+                                @ViewBag.ErrorMessage
+                            </div>
+                        }
+
+                        @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+                        {
+                            <div class="form-outline mb-4">
+                                <input type="text" name="username" class="form-control"
+                                       placeholder="Enter username" />
+                                <label class="form-label" for="form2Example11">Username</label>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <input type="password" name="password" class="form-control" />
+                                <label class="form-label" for="form2Example22">Password</label>
+                            </div>
+
+                            <div class="text-center pt-1 mb-5 pb-1">
+                                <button class="btn btn-primary btn-block fa-lg gradient-custom-3 mb-3"
+                                        type="submit">
+                                    Log in
+                                </button>
+                                <a class="text-muted" href="#!">Forgot password?</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

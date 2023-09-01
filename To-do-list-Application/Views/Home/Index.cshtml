@@ -1,0 +1,248 @@
+﻿@model To_do_list_Application.Models.UserModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+    <style>
+        .form-label {
+            font-size: 30px;
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: 500;
+            color: white;
+        }
+
+        .form-text {
+            color: lightgrey;
+        }
+
+
+        body {
+            margin: 0;
+            min-width: 250px;
+        }
+
+        /* Include the padding and border in an element's total width and height */
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Remove margins and padding from the list */
+        ul {
+            margin: 0;
+            padding: 0;
+        }
+
+            /* Style the list items */
+            ul li {
+                cursor: pointer;
+                position: relative;
+                padding: 12px 8px 12px 40px;
+                list-style-type: none;
+                background: #eee;
+                font-size: 18px;
+                transition: 0.2s;
+                /* make the list items unselectable */
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                width: 90%;
+            }
+
+                /* Set all odd list items to a different color (zebra-stripes) */
+                ul li:nth-child(odd) {
+                    background: #f9f9f9;
+                }
+
+                /* Darker background-color on hover */
+                ul li:hover {
+                    background: #ddd;
+                }
+
+                /* When clicked on, add a background color and strike out text */
+                ul li.checked {
+                    background: #888;
+                    color: #fff;
+                    text-decoration: line-through;
+                }
+
+                    /* Add a "checked" mark when clicked on */
+                    ul li.checked::before {
+                        content: '';
+                        position: absolute;
+                        border-color: #fff;
+                        border-style: solid;
+                        border-width: 0 2px 2px 0;
+                        top: 10px;
+                        left: 16px;
+                        transform: rotate(45deg);
+                        height: 15px;
+                        width: 7px;
+                    }
+
+        /* Style the header */
+        .header {
+            background-color: black;
+            padding: 30px 40px;
+            color: white;
+            text-align: center;
+        }
+
+            /* Clear floats after the header */
+            .header:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+
+        /* Style the input */
+        input {
+            margin: 0;
+            border: none;
+            border-radius: 0;
+            width: 75%;
+            padding: 10px;
+            float: left;
+            font-size: 16px;
+        }
+
+        /* Style the "Add" button */
+        .addBtn {
+            padding: 10px;
+            width: 25%;
+            background: #d9d9d9;
+            color: #555;
+            float: left;
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            border-radius: 0;
+        }
+
+            .addBtn:hover {
+                background-color: #bbb;
+            }
+
+        /* Style the edit and delete buttons */
+        .editBtn,
+        .deleteBtn {
+        background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right; /* Move buttons to the right corner */
+            margin-right: 10px; /* Add margin to separate buttons */
+        }
+   
+
+
+    .narrow-input {
+        width: 50%; /* Adjust the width as needed */
+    }
+
+    .background-image {
+        background-image: url('https://images.unsplash.com/photo-1542903660-eedba2cda473?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZGF0YXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60');
+        background-size: cover; /* Adjust as needed */
+      background-repeat: no-repeat;
+      background-color:darkseagreen;
+    }
+    .form-label{
+        font-size:30px;
+        font-family:'Times New Roman', Times, serif;
+        font-weight:500;
+        color:white;
+        
+
+    }
+    .form-text{
+        color:lightgrey;
+
+    }
+
+    .label-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-label {
+        font-size: 30px;
+        font-family: 'Times New Roman', Times, serif;
+        font-weight: 500;
+        color: white;
+    }
+
+    .form-control {
+        width: 90%;
+    }
+
+    .form-text {
+        color: lightgrey;
+        margin-top: 10px;
+    }
+
+    .container1 {
+        display: flex;
+        justify-content: center; 
+        align-items: center; 
+        border: 1px solid #ccc;
+        border:none;
+       
+    }
+    .container{
+        padding-top:0px;
+        margin-top:0px;
+    }
+
+    .deleteBtn {
+        vertical-align: middle;
+        margin-left: 10px; /* Add some space between the task name and the delete button */
+    }
+
+    .checkbox {
+        vertical-align: middle;
+        margin-right: 5px; /* Adjust the margin as needed */
+    }
+
+
+    </style>
+    
+<form action="/Home/Index" method="post">
+    <div class="mb-3">
+        <div class="label-container">
+            <label for="taskNameInput" class=" h2 fw-bold mb-0" style="padding-bottom:0.5em">Tasks</label>
+            <div style="padding-left:.5em">
+                <input type="text" class="form-control narrow-input" asp-for="TaskName" id="taskNameInput"><span><button type="submit" class="btn btn-primary">Add Task</button></span></div>
+           
+        </div>
+      
+    </div>
+</form>
+<div class="container">
+    <ul id="myUL">
+        @if (ViewBag.users != null && ViewBag.users.Count >= 1)
+        {
+            @foreach (var user in ViewBag.users)
+            {
+                <li>
+                   
+                    <span>@user.TaskName</span>
+                    <form method="post" asp-controller="Home" asp-action="Delete" asp-route-id="@user.id" style="display: inline;">
+                        <button type="submit" class="deleteBtn">Delete</button>
+                    </form>
+                </li>
+            }
+        }
+    </ul>
+</div>
+
+
+
+
+
+      
+
+
